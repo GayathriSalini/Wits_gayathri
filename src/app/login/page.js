@@ -56,9 +56,7 @@ export default function LoginPage() {
 
           <div className="w-full h-px bg-[#F4F4F4] my-1"></div>
 
-          <p className="text-center text-[13px] font-medium text-[#666666]">
-            New here? <a href="/" className="font-bold text-[#CC5000] hover:text-[#E55A00] transition-colors">Create an account</a>
-          </p>
+
 
           <div className="mt-2 text-center">
             <a href="/admin" className="text-[10px] font-bold tracking-widest text-[#999999] hover:text-[#666666] uppercase transition-colors">
