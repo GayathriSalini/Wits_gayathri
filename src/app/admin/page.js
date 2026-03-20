@@ -15,9 +15,6 @@ export default async function AdminDashboard() {
   const techPercentage = totalRegistrations > 0 ? Math.round((techCount / totalRegistrations) * 100) : 0;
   const nonTechPercentage = totalRegistrations > 0 ? 100 - techPercentage : 0;
 
-  const techSub1 = Math.floor(techPercentage / 2);
-  const techSub2 = Math.ceil(techPercentage / 2);
-
   // Year of study breakdown
   const yearCounts = { '1': 0, '2': 0, '3': 0, '4': 0, 'other': 0 };
   dbAttendees.forEach(a => {
