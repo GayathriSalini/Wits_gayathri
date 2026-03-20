@@ -1,4 +1,5 @@
 import { PrismaClient } from '@prisma/client';
+import AttendeeTable from '../../components/AttendeeTable';
 
 // Prevent Next.js from caching the database results statically
 export const dynamic = 'force-dynamic';
@@ -35,6 +36,7 @@ export default async function AdminDashboard() {
   const attendees = dbAttendees.map((a, i) => ({
     name: a.name,
     email: a.email,
+    college: a.college,
     year: `${a.yearOfStudy}${['1', '2', '3', '4'].includes(a.yearOfStudy) ? ' Year' : ''}`,
     domain: a.domain === 'Tech' ? 'TECH' : 'NON-TECH',
     domainCol: a.domain === 'Tech' ? 'bg-blue-100 text-[#0066CC]' : 'bg-orange-100 text-[#CC5000]',
@@ -50,7 +52,6 @@ export default async function AdminDashboard() {
           <p className="text-[#666666] font-medium text-[15px]">Real-time registration tracking and attendee breakdown.</p>
         </div>
         <div className="flex gap-4">
-
           <button className="flex items-center gap-2 bg-[#E55A00] hover:bg-[#CC5000] text-white px-5 py-2.5 rounded-full font-bold text-sm transition-colors shadow-[0_4px_14px_0_rgba(229,90,0,0.39)] hover:shadow-[0_6px_20px_rgba(229,90,0,0.23)]">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><line x1="12" y1="5" x2="12" y2="19" /><line x1="5" y1="12" x2="19" y2="12" /></svg>
             New Event
@@ -60,7 +61,7 @@ export default async function AdminDashboard() {
 
       {/* Metrics Row */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 w-full mb-10">
-
+        
         {/* TOTAL REGISTRATIONS */}
         <div className="bg-white rounded-[1.25rem] p-6 shadow-sm flex flex-col justify-between h-[180px] border border-[#EAEAEA]">
           <div className="flex justify-between items-start">
@@ -80,7 +81,7 @@ export default async function AdminDashboard() {
         {/* TECH VS NON-TECH */}
         <div className="bg-white rounded-[1.25rem] p-6 shadow-sm flex flex-col justify-center h-[180px] border border-[#EAEAEA]">
           <p className="text-[10px] font-bold tracking-widest text-[#999999] uppercase mb-6">TECH VS NON-TECH</p>
-
+          
           <div className="mb-4">
             <div className="flex justify-between text-xs font-bold text-[#1A1A1A] mb-2">
               <span>Tech Roles</span>
@@ -140,76 +141,7 @@ export default async function AdminDashboard() {
 
       </div>
 
-      {/* Search and Table Section */}
-      <div className="w-full bg-[#FCFBF8] border border-[#EFEFEF] rounded-2xl overflow-hidden mb-6 shadow-sm">
-        {/* Search Bar */}
-        <div className="flex flex-col md:flex-row items-center gap-4 p-4 border-b border-[#EAEAEA] bg-[#FAF9F5]">
-          <div className="flex-1 bg-white rounded-xl flex items-center px-4 py-3 w-full shadow-sm border border-[#EAEAEA]">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#999999" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="mr-3"><circle cx="11" cy="11" r="8" /><path d="m21 21-4.3-4.3" /></svg>
-            <input type="text" placeholder="Search by name or email..." className="w-full text-sm font-medium focus:outline-none placeholder:text-[#999999] text-[#1A1A1A]" />
-          </div>
-          <div className="bg-white rounded-xl flex items-center px-4 py-3 min-w-[160px] shadow-sm relative border border-[#EAEAEA]">
-            <select className="w-full text-sm font-bold appearance-none bg-transparent focus:outline-none text-[#1A1A1A]">
-              <option>All Domains</option>
-            </select>
-            <div className="absolute right-4 pointer-events-none text-[#999999]">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m6 9 6 6 6-6" /></svg>
-            </div>
-          </div>
-        </div>
-
-        {/* Table */}
-        <div className="w-full overflow-x-auto">
-          <table className="w-full text-left border-collapse">
-            <thead>
-              <tr className="border-b border-[#EAEAEA]">
-                <th className="py-4 px-6 text-[10px] font-bold tracking-widest text-[#999999] uppercase">ATTENDEE NAME</th>
-                <th className="py-4 px-6 text-[10px] font-bold tracking-widest text-[#999999] uppercase">EMAIL ADDRESS</th>
-                <th className="py-4 px-6 text-[10px] font-bold tracking-widest text-[#999999] uppercase">YEAR</th>
-                <th className="py-4 px-6 text-[10px] font-bold tracking-widest text-[#999999] uppercase">DOMAIN</th>
-                <th className="py-4 px-6 text-[10px] font-bold tracking-widest text-[#999999] uppercase">STATUS</th>
-              </tr>
-            </thead>
-            <tbody className="bg-white">
-              {attendees.length > 0 ? attendees.map((a, i) => (
-                <tr key={i} className={`hover:bg-[#FCFBF8] transition-colors ${i !== attendees.length - 1 ? 'border-b border-[#EAEAEA]' : ''}`}>
-                  <td className="py-5 px-6 font-bold text-sm text-[#1A1A1A]">{a.name}</td>
-                  <td className="py-5 px-6 text-sm font-medium text-[#666666]">{a.email}</td>
-                  <td className="py-5 px-6 text-sm text-[#666666] font-medium">{a.year}</td>
-                  <td className="py-5 px-6">
-                    <span className={`text-[9.5px] font-black tracking-widest uppercase px-2 py-1 rounded bg-opacity-20 ${a.domainCol}`}>
-                      {a.domain}
-                    </span>
-                  </td>
-                  <td className="py-5 px-6">
-                    <div className="flex items-center gap-2">
-                      <div className={`w-1.5 h-1.5 rounded-full ${a.status === 'Confirmed' ? 'bg-[#10B981]' : 'bg-[#CC5000]'}`}></div>
-                      <span className={`text-[12px] font-bold ${a.status === 'Confirmed' ? 'text-[#10B981]' : 'text-[#CC5000]'}`}>{a.status}</span>
-                    </div>
-                  </td>
-                </tr>
-              )) : (
-                <tr>
-                  <td colSpan="5" className="py-12 text-center text-[#999999] text-sm font-medium">No registrations yet. Be the first to register!</td>
-                </tr>
-              )}
-            </tbody>
-          </table>
-        </div>
-
-        {/* Pagination Footer */}
-        <div className="flex items-center justify-between px-6 py-4 bg-[#FCFBF8] border-t border-[#EAEAEA]">
-          <span className="text-xs font-medium text-[#666666]">Showing {attendees.length > 0 ? 1 : 0}-{Math.min(5, attendees.length)} of {totalRegistrations} attendees</span>
-          <div className="flex gap-2">
-            <button className="w-8 h-8 flex items-center justify-center bg-white rounded shadow-[0_1px_3px_rgba(0,0,0,0.05)] font-bold text-[#1A1A1A] hover:bg-gray-50 border border-[#EAEAEA]">
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="m15 18-6-6 6-6" /></svg>
-            </button>
-            <button className="w-8 h-8 flex items-center justify-center bg-white rounded shadow-[0_1px_3px_rgba(0,0,0,0.05)] font-bold text-[#1A1A1A] hover:bg-gray-50 border border-[#EAEAEA]">
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="m9 18 6-6-6-6" /></svg>
-            </button>
-          </div>
-        </div>
-      </div>
+      <AttendeeTable initialAttendees={attendees} totalRegistrations={totalRegistrations} />
     </div>
   );
 }

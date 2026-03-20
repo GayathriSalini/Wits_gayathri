@@ -38,7 +38,7 @@ export default function Header() {
           </Link>
         ) : (
           <Link href="/login" className="bg-[#EFEFEF] text-[#1A1A1A] px-6 py-2 rounded-full font-bold text-sm hover:bg-[#E5E5E5] transition-colors ml-4">
-            Admin
+            Admin Login
           </Link>
         )}
       </nav>

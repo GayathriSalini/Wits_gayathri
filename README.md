@@ -1,6 +1,13 @@
 # 🚀 Women in Tech — Event Registration Platform
 
-A full-stack event registration system built with **Next.js 14**, **Prisma ORM**, and **MongoDB Atlas**. Features a beautiful Y Combinator-inspired UI with a registration form, confirmation page, admin analytics dashboard, and login page.
+A full-stack event registration system built with **Next.js 14**, **Prisma ORM**, and **MongoDB Atlas**.
+
+### 🔐 Default Admin Login
+
+| Field | Value |
+|---|---|
+| **Username** | `admin` |
+| **Password** | `admin123wits` |
 
 ---
 
