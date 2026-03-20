@@ -2,6 +2,8 @@
 
 A full-stack event registration system built with **Next.js 14**, **Prisma ORM**, and **MongoDB Atlas**.
 
+**Visit** `https://wits-gayathri.vercel.app/`
+
 ### 🔐 Default Admin Login
 
 | Field | Value |
@@ -150,7 +152,7 @@ npm run dev
 ```
 
 Visit `http://localhost:3000` to see the app.
-
+Visit `https://wits-gayathri.vercel.app/`
 ---
 
 ## 📄 Pages Overview
